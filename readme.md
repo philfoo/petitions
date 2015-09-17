@@ -22,14 +22,20 @@ The Design of the Petition platform follows its goals. Modular design should all
  - response: A string containing any response from admins (Larry Moneta <3)
  - tags: a JSON array of strings that can be used for searching and classifying the petition
  - category: A single string (chosen from a set list of categories) used to group petitions
- - votes: A list of netids that have voted for the petition in question
  - count: A full count of voters (necessary to display the vote count without exposing all of the voters' identities to the client)
  - date: unix time (millis) of the first listing of the petition
+
+#### Votes
+ - netid: netid of the voter
+ - name: name of the voter
+ - comment: 512 character comment by the voter (should explain why they supported the petition)
+ - timestamp: unix milliseconds timestamp
 
 #### Users
 
  - netid: unique netid
  - lastvote: unix time (millis) of the last vote made by the user
+ - petitionid: id of the petition the vote is for
  - remainingVotes: number of votes remaining for the day for the user
  - admin: boolean representing whether the user is an admin
 
