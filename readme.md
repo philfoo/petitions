@@ -28,6 +28,7 @@ The Design of the Petition platform follows its goals. Modular design should all
 #### Votes
  - netid: netid of the voter
  - name: name of the voter
+ - petitionid: id of the petition the vote is for
  - comment: 512 character comment by the voter (should explain why they supported the petition)
  - timestamp: unix milliseconds timestamp
 
@@ -35,7 +36,6 @@ The Design of the Petition platform follows its goals. Modular design should all
 
  - netid: unique netid
  - lastvote: unix time (millis) of the last vote made by the user
- - petitionid: id of the petition the vote is for
  - remainingVotes: number of votes remaining for the day for the user
  - admin: boolean representing whether the user is an admin
 
