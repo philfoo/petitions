@@ -1,5 +1,3 @@
-///<reference path="typings/es6-promise/es6-promise.d.ts" />
-//Colab Javascript utils
 var utils;
 (function (utils) {
     //TODO
