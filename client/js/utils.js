@@ -1,6 +1,5 @@
 var utils;
 (function (utils) {
-    //TODO
     //runs ajax request for url, parses json, and returns a promise for the result
     //much credit for a reference implementation goes to http://www.html5rocks.com/en/tutorials/es6/promises/#toc-promisifying-xmlhttprequest
     //their work is fantastic <3 and makes my life so much better
