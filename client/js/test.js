@@ -18,21 +18,35 @@ $(function () {
   //   $("#result").html(theTemplate(outData));
   // });
 
-  function ajaxCall(destinationUrl, callback){
-    $.ajax({
-      url:destinationUrl,  
-      success:function(data) {
-        callback(data); 
-      }
-    });
-  }
+  // function ajaxCall(destinationUrl, callback){
+  //   $.ajax({
+  //     url:destinationUrl,  
+  //     success:function(data) {
+  //       callback(data); 
+  //     }
+  //   });
+  // }
 
   function getData(urll, location){ //location = "#result"
     // var url = '';
-    ajaxCall(urll, function(data){
-      var obj = $.parseJSON(data)
-      $(location).html(theTemplate(obj));
-    });
+    $.get(urll, function(data, status){
+      var obj = $.parseJSON(data);
+      var theCompiledHtml = theTemplate(obj);
+      $(location).html(theTemplate(theCompiledHtml));
+    })
+
+    // ajaxCall(urll, function(data){
+    //   var obj = $.parseJSON(data)
+    //   $(location).html(theTemplate(obj));
+    // });
+  }
+
+  function postData(urll, data, location){
+    $.post(urll, data, function(data, status){
+      var obj = $.parseJSON(data);
+      var theCompiledHtml = theTemplate(obj);
+      $(location).html(theTemplate(theCompiledHtml));
+    })
   }
 
 // Handlebars.getData = function(type, callback, parameters){
@@ -93,7 +107,7 @@ $(function () {
 // };
 
   // Pass our data to the template
-  var theCompiledHtml = theTemplate(context);
+  // var theCompiledHtml = theTemplate(context);
 
   // Add the compiled html to the page
   // $('.content-placeholder').html(theCompiledHtml);
