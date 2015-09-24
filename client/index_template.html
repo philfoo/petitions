@@ -86,6 +86,23 @@
         <div class="row">
           <div class="large-12 columns">
             <div class="row">
+
+
+              <script id="example-template" type="text/x-handlebars-template">
+
+                <!-- people is looked up on the global context, the one we pass to the compiled template -->
+
+                {{#each obj}}
+
+                  <!-- Here the context is each individual person. So we can access its properties directly: -->
+                  // <p>{{firstName}} {{lastName}}</p>
+                  <h4 class="panel">{{name}}</h6>
+                  <p class="blurb"> {{blurb}}</p>
+                  <p class = "num-vote">Votes: {{count}}</p>
+
+                {{/each}}
+
+              </script>
        
            
        
