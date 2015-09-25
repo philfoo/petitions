@@ -1,6 +1,6 @@
 $(function () {
   // Grab the template script
-  var theTemplateScript = $("#votes-template").html();
+  var theTemplateScript = $("#example-template").html();
 
   // Compile the template
   var theTemplate = Handlebars.compile(theTemplateScript);
@@ -18,27 +18,13 @@ $(function () {
   //   $("#result").html(theTemplate(outData));
   // });
 
-  // function ajaxCall(destinationUrl, callback){
-  //   $.ajax({
-  //     url:destinationUrl,  
-  //     success:function(data) {
-  //       callback(data); 
-  //     }
-  //   });
-  // }
-
   function getData(urll, location){ //location = "#result"
     // var url = '';
     $.get(urll, function(data, status){
       var obj = $.parseJSON(data);
       var theCompiledHtml = theTemplate(obj);
       $(location).html(theTemplate(theCompiledHtml));
-    })
-
-    // ajaxCall(urll, function(data){
-    //   var obj = $.parseJSON(data)
-    //   $(location).html(theTemplate(obj));
-    // });
+    });
   }
 
   function postData(urll, data, location){
@@ -46,65 +32,23 @@ $(function () {
       var obj = $.parseJSON(data);
       var theCompiledHtml = theTemplate(obj);
       $(location).html(theTemplate(theCompiledHtml));
-    })
+    });
   }
 
-// Handlebars.getData = function(type, callback, parameters){
-//   switch(type){
-//     case 'petitions':
-//       $.ajax({
-//         url: '/petitions'+parameters['petitionid'];
-//         success: function(data){
-//           callback(data);
-//         },
-//         async:true
-//       });
-//       break;
-//     case 'users':
-//       $.ajax({
-//         url: '/users',
-//         success: function(data){
-//           callback(data);
-//         },
-//         async:true
-//       });
-//       break;
-//     case 'votes':
-//       $.ajax({
-//         url: '/votes',
-//         success: function(data){
-//           callback(data);
-//         },
-//         async:true
-//       });
-//       break;
-//     case 'categories':
-//       $.ajax({
-//         url: '/categories',
-//         success: function(data){
-//           callback(data);
-//         },
-//         async:true
-//       });
-//       break;
-//   }
-// }
+  var getPetitionsData = function(){ //location = "#result"
+    // var url = '';
+    var location = "row";
+    var url = "/backend/petitions";
+    getData(url, location);
+  }
 
-//   Handlebars.getTemplate = function(name) {
-//     if (Handlebars.templates === undefined || Handlebars.templates[name] === undefined) {
-//         $.ajax({
-//             url : 'templatesfolder/' + name + '.handlebars',
-//             success : function(data) {
-//                 if (Handlebars.templates === undefined) {
-//                     Handlebars.templates = {};
-//                 }
-//                 Handlebars.templates[name] = Handlebars.compile(data);
-//             },
-//             async : false
-//         });
-//     }
-//     return Handlebars.templates[name];
-// };
+  var getCategoriesData = function(){
+    var location = "row";
+    var url = "/backend/categories";
+    getData(url, location);
+  }
+
+  getPetitionsData();
 
   // Pass our data to the template
   // var theCompiledHtml = theTemplate(context);
