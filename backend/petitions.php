@@ -35,6 +35,19 @@
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-		//Generate PHP array, convert to JSON file
+		
+		$query = "SELECT * FROM petitions";
+
+		//Initialize petitions array with PHP objects
+		$petitions = [];
+
+		//Load all rows in result
+		if ($result = mysqli_query($conn, $query)){
+			while ($row = mysqli_fetch_object($result)){
+				array_push($petitions, $row);
+			}
+		}
+
+		echo json_encode($petitions);
 	}
 ?>
