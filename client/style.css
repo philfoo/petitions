@@ -1,0 +1,44 @@
+nav {
+	background-color: #001A57;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+}
+
+
+
+li {
+	float: left;
+}
+
+div.left {
+	float: left;
+}
+
+div.right {
+	float: right;
+}
+
+
+
+a {
+	display: table-cell;
+	width: 120px;
+	height: 30px;
+	font-weight: bold;
+	
+	color: #FFFFFF;
+	text-align: center;
+	padding: 4px
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+
+form {
+
+}
