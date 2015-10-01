@@ -11,6 +11,7 @@ var DSGSTF;
         var petitionList = document.getElementById("petition-list");
         // var votesLeftTemplate = Handlebars.compile(document.getElementById("votesLeft-template").innerHTML);
         var categories = [];
+        var petitions = [];
         var admins = [];
         function getJSON(url) {
             return new Promise(function (resolve, reject) {
@@ -57,7 +58,10 @@ var DSGSTF;
             var url = "/backend/petitions";
             getJSON(url).then(function (pets) {
                 for (var i in pets) {
-                    petitionList.innerHTML += littlePetitionTemplate(pets);
+                    if (!(pets[i] in petitions)) {
+                        petitions.push(pets[i]);
+                    }
+                    petitionList.innerHTML += littlePetitionTemplate(pets[i]);
                 }
             });
         };
