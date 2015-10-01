@@ -6,7 +6,6 @@
 	$db_name = "petitions";
 	$tbl_name = "petitions";
 
-	//Create connection
 	$conn = new mysqli($host, $username, $password, $dbname);
 
 	if ($conn->connect_error){
@@ -14,23 +13,39 @@
 	}
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-		//add to the database here
 		
-		//Prepared statement
-		$query = $conn->prepare("INSERT INTO petitions(name, author, blurb, content, tags, category, date) VALUES(?,?,?,?,?,?,?)");
-		$query->bind_params("sssssss", $name, $author, $blurb, $content, $tags, $category, $date);
-		
-		//Grab information from AJAX
-		$name = $_POST['name'];
-		$author = $_POST['author'];
-		$blurb = $_POST['blurb'];
-		$content = $_POST['content'];
-		$tags = $_POST['tags'];
-		$category = $_POST['category'];
-		//Passed a string from AJAX hopefully
-		$date = $_POST['date'];
+		//VOTE FOR THE PETITION
+		if (array_key_exists("petitionid", $_REQUEST){
+			
+			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
+			$query->bind_params("sssss", $netid, $name, $petitionid, $comment, $timestamp);
+			
+			$netid = $_ENV['netid']; //From Shibboleth
+			$name = $_POST['name'];
+			$petitionid = $_REQUEST['petitionid']; //From URL
+			$comment = $POST['comment'];
+			$timestamp = $POST['timestamp'];
 
-		$query->execute();
+			$query->execute();
+		}
+		
+		//ADD NEW PETITON TO DATABASE
+		else{
+			$query = $conn->prepare("INSERT INTO petitions(name, author, blurb, content, tags, category, date) VALUES(?,?,?,?,?,?,?)");
+			$query->bind_params("sssssss", $name, $author, $blurb, $content, $tags, $category, $date);
+			
+			//Grab information from AJAX
+			$name = $_POST['name'];
+			$author = $_POST['author'];
+			$blurb = $_POST['blurb'];
+			$content = $_POST['content'];
+			$tags = $_POST['tags'];
+			$category = $_POST['category'];
+			//Passed a string from AJAX hopefully
+			$date = $_POST['date'];
+
+			$query->execute();
+		}
 
 	}
 
