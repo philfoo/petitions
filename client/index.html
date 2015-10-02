@@ -1,68 +1,107 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>DSG Petitions Platform</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
 </head>
 <body>
-	<nav><!--This is where a nav/search/filter bar will be-->
-		
-       
-              <ul>
-                <div class="left">
-                
-                  <li class="name">
-                  
-                    <a class="name" href="#">
-                      Duke Petitions
-                    </a>
-                  
-                  </li>
-                  <li><a href="#">Link 1</a></li>
-                  <li><a href="#">Link 2</a></li>
-                  <li class="search">
-                    <form>
-                      <input type="search">
-                    </form>
-                  </li>
-       
-                  <li class="search">
-                    <a class="search-button" href="#">Search</a>
-                  </li>
-              
-              </div>
-              <div class="right">
-             
-                 
-       
-                  <li class="login">
-                    <a class="login-button" href="#">Login</a>
-                  </li>
-               
-              </div>
-               </ul>
-            
+	<nav class="navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Duke Petitions</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbspPetitions</a></li>
+        
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span>&nbspSearch</a></li> 
+        <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbspNew</a></li> 
+        <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-sort"></span>&nbspSort <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Time</a></li>
+                    <li><a href="#">Votes</a></li>
+                    <li><a href="#">Responses</a></li>
+                    
+                </ul>
+            </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbspLogin</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
 
-	</nav>
+ <div class="cotainer-fluid">
+          <img src="http://static.tumblr.com/epfurfj/WN6lykxjz/screen_shot_2012-01-29_at_4.36.38_pm.png" alt="slide image" width="100%">
 
- <div class="image">
-          <img src="https://www1.cfnc.org/school_logos/CFNC/Duke_University/Duke_logo.gif" alt="slide image" height="300" width="1128">
+  </div>
 
-        </div>
-
-	<header>
-		<h1>Welcome to the Petitions Platform</h1>
+	<div class="jumbotron">
+	<center>
+    <h3>Welcome to the Petitions Platform</h3>
 		<p>This is where a short description of the platform as a whole will go.</p>
-	</header>
+  </center>
+	</div>
 	<main>
 		<!-- THIS IS WHERE RENDERED CONTENT GOES -->
-		<div class="petition">
-                <img src="http://placehold.it/250x250&text=Thumbnail"/>
-                <h4 class="name">Petition Name</h6>
-                <p class="blurb"> blurb blurb blurb</p>
-                <p class = "num-vote">Votes: 0</p>
-              </div>
-	</main>
+
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-4">
+    <div class="panel panel-primary">
+      
+      <div class="panel-heading"><center>No homework!&nbsp<span class="badge">121</span></center></div>
+      
+      <div class="panel-body">
+        We are too stressed!
+      </div>
+      <div class="panel-body">
+      <span class="label label-primary">ACADEMICS</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="panel panel-primary">
+
+      <div class="panel-heading"><center>Extend Fall Break to 20 days!&nbsp<span class="badge">25</span></center></div>
+      
+      <div class="panel-body">
+        It sucks that fall break is so short
+      </div>
+      <div class="panel-body">
+        <span class="label label-primary">SCHEDULE</span>
+        <span class="label label-primary">CAMPUS LIFE</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="panel panel-primary">
+      
+      <div class="panel-heading"><center>Let's go tenting!&nbsp<span class="badge">11</span></center></div>
+ 
+      <div class="panel-body">
+        YAY!
+      </div>
+      <div class="panel-body">
+        <span class="label label-primary">CAMPUS LIFE</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+		
+	
+  </main>
 </body>
 <script id="little-petition" type="text/x-handlebars-template">
 	
