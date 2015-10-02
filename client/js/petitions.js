@@ -9,7 +9,10 @@ var DSGSTF;
         var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
         var bigPetitionTemplate = Handlebars.compile(document.getElementById("big-petition-template").innerHTML);
         var petitionList = document.getElementById("petition-list");
+        // var votesLeftTemplate = Handlebars.compile(document.getElementById("votesLeft-template").innerHTML);
         var categories = [];
+        var petitions = [];
+        var admins = [];
         function getJSON(url) {
             return new Promise(function (resolve, reject) {
                 //TODO run ajax request
@@ -23,7 +26,26 @@ var DSGSTF;
                         reject(Error(req.statusText));
                     }
                 };
-                req.onerror = function () { reject(Error("Could not getJSON. Network Error.")); };
+                req.onerror = function () { reject(Error("Could not get JSON. Network Error.")); };
+                req.send();
+            });
+        }
+
+
+        function postReq(url) {
+            return new Promise(function (resolve, reject) {
+                //TODO run ajax request
+                var req = new XMLHttpRequest();
+                req.open("POST", url);
+                req.onload = function () {
+                    if (req.status === 200) {
+                        resolve(req.response);
+                    }
+                    else {
+                        reject(Error(req.statusText));
+                    }
+                };
+                req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
                 req.send();
             });
         }
@@ -36,9 +58,19 @@ var DSGSTF;
             var url = "/backend/petitions";
             getJSON(url).then(function (pets) {
                 for (var i in pets) {
-                    petitionList.innerHTML += littlePetitionTemplate(pets);
+                    if (!(pets[i] in petitions)) {
+                        petitions.push(pets[i]);
+                    }
+                    petitionList.innerHTML += littlePetitionTemplate(pets[i]);
                 }
             });
+        };
+
+        //in HTML, use <button onclick = ""></button>
+        //-- hopefully this will increase the vote by one
+        postPetitionsData = function(petitionId){
+            var url = "/backend/petitions" + "/" + petitionId;
+            postReq(url);
         };
         
         
@@ -54,10 +86,29 @@ var DSGSTF;
                 }
             });
         };
-        
-        
-        
-        getPetitionsData();
+
+
+        // get netid from $env shibboleth
+        var getVotesLeft = function () {
+            var location = "votesLeft";
+            var url = "/backend/votesLeft";
+            getJSON(url).then(function (votes) {
+                
+            });
+        };
+
+
+        var getAdminData = function(){
+            var location = "admins";
+            var url = "/backend/admins";
+            getJSON(url).then(function (admins) {
+                for (var i in adminList) {
+                    if (!(adminList[i] in admins)) {
+                        admins.push(adminList[i]);
+                    }
+                }
+            });
+        }
         
         
         
