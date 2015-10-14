@@ -18,7 +18,7 @@
 		if (array_key_exists("petitionid", $_REQUEST)) {
 			
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
-			$query->bind_params("sssss", $netid, $name, $petitionid, $comment, $timestamp);
+			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
 			
 			$netid = $_ENV['netid']; //From Shibboleth
 			$name = $_POST['name'];
@@ -32,7 +32,7 @@
 		//ADD NEW PETITON TO DATABASE
 		else{
 			$query = $conn->prepare("INSERT INTO petitions(name, author, blurb, content, tags, category, date) VALUES(?,?,?,?,?,?,?)");
-			$query->bind_params("sssssss", $name, $author, $blurb, $content, $tags, $category, $date);
+			$query->bind_param("sssssss", $name, $author, $blurb, $content, $tags, $category, $date);
 			
 			//Grab information from AJAX
 			$name = $_POST['name'];
