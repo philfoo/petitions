@@ -36,7 +36,7 @@
 			
 			//Grab information from AJAX
 			$name = $_POST['name'];
-			$author = $_POST['author'];
+			$author = $_ENV['netid'];
 			$blurb = $_POST['blurb'];
 			$content = $_POST['content'];
 			$tags = $_POST['tags'];
