@@ -6,7 +6,7 @@
 	$db_name = "petitions";
 	$tbl_name = "petitions";
 
-	$conn = new mysqli($host, $username, $password, $dbname);
+	$conn = new mysqli($host, $username, $password, $db_name);
 
 	if ($conn->connect_error){
 		die("Connection failed: " . $conn->connect_error);
