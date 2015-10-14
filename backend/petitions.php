@@ -1,6 +1,6 @@
 <?php
 	//Server information
-	$host = "colab-sbx-31@oit.duke.edu";
+	$host = "localhost";
 	$username = "root";
 	$password = "root";
 	$db_name = "petitions";
@@ -15,7 +15,7 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
 		//VOTE FOR THE PETITION
-		if (array_key_exists("petitionid", $_REQUEST){
+		if (array_key_exists("petitionid", $_REQUEST)) {
 			
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_params("sssss", $netid, $name, $petitionid, $comment, $timestamp);
