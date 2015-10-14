@@ -32,7 +32,7 @@ var DSGSTF;
         }
 
 
-        function postReq(url) {
+        function postReq(url, params) {
             return new Promise(function (resolve, reject) {
                 //TODO run ajax request
                 var req = new XMLHttpRequest();
@@ -46,18 +46,15 @@ var DSGSTF;
                     }
                 };
                 req.onerror = function () { reject(Error("Could not process POST request. Network Error.")); };
-                req.send();
+                req.send(params);
             });
         }
         
-        
-        
         var getPetitionsData = function () {
-            // var url = '';
             var location = "petition-list";
             var url = "/backend/petitions";
             getJSON(url).then(function (pets) {
-                for (var i in pets) {
+                for (var i=0; i<pets.length; i++) {
                     if (!(pets[i] in petitions)) {
                         petitions.push(pets[i]);
                     }
@@ -79,7 +76,7 @@ var DSGSTF;
             var location = "row";
             var url = "/backend/categories";
             getJSON(url).then(function (cats) {
-                for (var i in cats) {
+                for (var i=0; i<cats.length, i++) {
                     if (!(cats[i] in categories)) {
                         categories.push(cats[i]);
                     }
@@ -88,7 +85,7 @@ var DSGSTF;
         };
 
 
-        // get netid from $env shibboleth
+        // get netid from $_ENV shibboleth
         var getVotesLeft = function () {
             var location = "votesLeft";
             var url = "/backend/votesLeft";
@@ -102,7 +99,7 @@ var DSGSTF;
             var location = "admins";
             var url = "/backend/admins";
             getJSON(url).then(function (admins) {
-                for (var i in adminList) {
+                for (var i=0; i<adminList.length; i++) {
                     if (!(adminList[i] in admins)) {
                         admins.push(adminList[i]);
                     }
