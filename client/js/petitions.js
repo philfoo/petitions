@@ -2,9 +2,9 @@ var DSGSTF;
 (function (DSGSTF) {
     var petitions;
     (function (petitions) {
-        
-        
-        
+
+
+
         var voteTemplate = Handlebars.compile(document.getElementById("vote-template").innerHTML);
         var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
         var bigPetitionTemplate = Handlebars.compile(document.getElementById("big-petition-template").innerHTML);
@@ -49,12 +49,12 @@ var DSGSTF;
                 req.send(params);
             });
         }
-        
+
         var getPetitionsData = function () {
             var location = "petition-list";
             var url = "/backend/petitions";
             getJSON(url).then(function (pets) {
-                for (var i=0; i<pets.length; i++) {
+                for (var i = 0; i < pets.length; i++) {
                     if (!(pets[i] in petitions)) {
                         petitions.push(pets[i]);
                     }
@@ -65,13 +65,13 @@ var DSGSTF;
 
         //in HTML, use <button onclick = ""></button>
         //-- hopefully this will increase the vote by one
-        postPetitionsData = function(petitionId){
+        postPetitionsData = function (petitionId) {
             var url = "/backend/petitions" + "/" + petitionId;
             postReq(url);
         };
-        
-        
-        
+
+
+
         var getCategoriesData = function () {
             var location = "row";
             var url = "/backend/categories";
@@ -90,24 +90,26 @@ var DSGSTF;
             var location = "votesLeft";
             var url = "/backend/votesLeft";
             getJSON(url).then(function (votes) {
-                
+
             });
         };
 
 
-        var getAdminData = function(){
+        var getAdminData = function () {
             var location = "admins";
             var url = "/backend/admins";
             getJSON(url).then(function (admins) {
-                for (var i=0; i<adminList.length; i++) {
+                for (var i = 0; i < adminList.length; i++) {
                     if (!(adminList[i] in admins)) {
                         admins.push(adminList[i]);
                     }
                 }
             });
-        }
-        
-        
-        
+        };
+
+        return {
+            getPetitionsData: getPetitionsData
+        };
+
     })(petitions = DSGSTF.petitions || (DSGSTF.petitions = {}));
 })(DSGSTF || (DSGSTF = {}));
