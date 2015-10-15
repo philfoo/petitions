@@ -76,7 +76,7 @@ var DSGSTF;
             var location = "row";
             var url = "/backend/categories";
             getJSON(url).then(function (cats) {
-                for (var i = 0; i < cats.length, i++) {
+                for (var i=0; i<cats.length; i++) {
                     if (!(cats[i] in categories)) {
                         categories.push(cats[i]);
                     }
