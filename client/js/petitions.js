@@ -65,7 +65,7 @@ var DSGSTF;
 
         //in HTML, use <button onclick = ""></button>
         //-- hopefully this will increase the vote by one
-        postPetitionsData = function (petitionId) {
+        var postPetitionsData = function (petitionId) {
             var url = "/backend/petitions" + "/" + petitionId;
             postReq(url);
         };
