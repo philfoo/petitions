@@ -4,15 +4,19 @@ var DSGSTF;
     (function (petitions) {
 
 
-
-        var voteTemplate = Handlebars.compile(document.getElementById("vote-template").innerHTML);
-        var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
-        var bigPetitionTemplate = Handlebars.compile(document.getElementById("big-petition-template").innerHTML);
-        var petitionList = document.getElementById("petition-list");
+        try {
+            var voteTemplate = Handlebars.compile(document.getElementById("vote-template").innerHTML);
+            var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
+            var bigPetitionTemplate = Handlebars.compile(document.getElementById("big-petition-template").innerHTML);
+        } catch (err) {
+            console.log(err);  
+        }
+        var petitionListEl = document.getElementById("petition-list");
         // var votesLeftTemplate = Handlebars.compile(document.getElementById("votesLeft-template").innerHTML);
         var categories = [];
-        var petitions = [];
+        var petitionList = [];
         var admins = [];
+        
         function getJSON(url) {
             return new Promise(function (resolve, reject) {
                 //TODO run ajax request
@@ -50,29 +54,31 @@ var DSGSTF;
             });
         }
 
-        var getPetitionsData = function () {
+        petitions.getPetitionsData = function() {
             var location = "petition-list";
             var url = "/backend/petitions";
             getJSON(url).then(function (pets) {
                 for (var i = 0; i < pets.length; i++) {
-                    if (!(pets[i] in petitions)) {
-                        petitions.push(pets[i]);
+                    if (!(pets[i] in petitionList)) {
+                        petitionList.push(pets[i]);
                     }
                     petitionList.innerHTML += littlePetitionTemplate(pets[i]);
                 }
             });
         };
 
+
         //in HTML, use <button onclick = ""></button>
         //-- hopefully this will increase the vote by one
-        var postPetitionsData = function (petitionId) {
+
+        petitions.postPetitionsData = function (petitionId) {
             var url = "/backend/petitions" + "/" + petitionId;
             postReq(url);
         };
 
 
 
-        var getCategoriesData = function () {
+        petitions.getCategoriesData = function () {
             var location = "row";
             var url = "/backend/categories";
             getJSON(url).then(function (cats) {
@@ -86,7 +92,7 @@ var DSGSTF;
 
 
         // get netid from $_ENV shibboleth
-        var getVotesLeft = function () {
+        petitions.getVotesLeft = function () {
             var location = "votesLeft";
             var url = "/backend/votesLeft";
             getJSON(url).then(function (votes) {
@@ -95,7 +101,7 @@ var DSGSTF;
         };
 
 
-        var getAdminData = function () {
+        petitions.getAdminData = function () {
             var location = "admins";
             var url = "/backend/admins";
             getJSON(url).then(function (admins) {
@@ -107,9 +113,6 @@ var DSGSTF;
             });
         };
 
-        return {
-            getPetitionsData: getPetitionsData
-        };
 
     })(petitions = DSGSTF.petitions || (DSGSTF.petitions = {}));
 })(DSGSTF || (DSGSTF = {}));

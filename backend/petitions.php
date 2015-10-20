@@ -16,17 +16,23 @@
 		
 		//VOTE FOR THE PETITION
 		if (array_key_exists("petitionid", $_REQUEST)) {
-			
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
-			
 			$netid = $_ENV['netid']; //From Shibboleth
 			$name = $_POST['name'];
 			$petitionid = $_REQUEST['petitionid']; //From URL
 			$comment = $POST['comment'];
 			$timestamp = $POST['timestamp'];
-
 			$query->execute();
+
+			//Update votes count
+			$votes_result = $conn->query("SELECT *FROM votes WHERE petitionid = '$petitionid'");
+			$numvotes = $votes_result->num_rows;
+			$votes_query = "UPDATE petitions
+							SET count = $numvotes
+							WHERE id = $petitionid";
+			$votes_query->execute();
+
 		}
 		
 		//ADD NEW PETITON TO DATABASE
