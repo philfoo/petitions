@@ -82,7 +82,7 @@
 			$delete_query = "DELETE FROM petitions WHERE petitionid = '$petitionid'";
 			mysqli_query($conn, $delete_query);
 
-			//Remove votes from votes table
+			//Remove petition votes from votes table
 			$remove_votes_query = "DELETE FROM votes WHERE petitionid = '$petitionid'";
 			mysqli_query($conn, $remove_votes_query);
 		}
