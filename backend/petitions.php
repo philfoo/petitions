@@ -74,10 +74,11 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		//Check for authentication
 		$petitionid = $_REQUEST['petitionid'];
-		$result = $conn->query("SELECT author FROM petitions WHERE petitionid = '$petitionid'");
+		$result = $conn->query("SELECT author FROM petitions WHERE petitionid = '$petitionid' LIMIT 1");
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		//Authenticated
-		if ($_ENV['netid'] == $result['author']){
+		if ($_ENV['netid'] == $row['author']){
 			//Remove from petitions table
 			$delete_query = "DELETE FROM petitions WHERE petitionid = '$petitionid'";
 			mysqli_query($conn, $delete_query);

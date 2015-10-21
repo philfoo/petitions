@@ -5,4 +5,9 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 		//List all admins (JSON?)
+	}
+
+	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+		
+	}
 ?>
