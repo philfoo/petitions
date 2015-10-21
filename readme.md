@@ -79,7 +79,6 @@ The structure below is an explanation of the directory structure of the repo:
 | /backend/petitions | A GET request returns a JSON array of all petitions. a POST request validates and saves a new petition |
 | /backend/petitions/:petitionid | A POST request votes for the petition as the user. a DELETE request by the *author* removes it |
 | /backend/categories | A GET request returns a JSON array of categories. A POST request adds a new category (admin only) |
-| /backend/votesLeft | A GET request returns the number of votes left for a user |
+| /backend/user | A GET request returns the user from the user table. |
 | /backend/admins | A GET request lists all admins. A POST request adds a netid as an admin |
-| /backend/admins/:netid | A DELETE request removes admin privileges of a user |
 | /api         | Placeholder for the Co-Lab style API (not secured by shib) |
