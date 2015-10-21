@@ -81,7 +81,7 @@ var DSGSTF;
         petitions.voteOnce = function(petitionId){
             var url = "/backend/petitions.php";
             //-- vote once, and then update all the HTML
-            postJSON(url, "petitionid="+petitionId).then(function(){
+            postReq(url, "petitionid="+petitionId).then(function(){
                 getJSON(url).then(function(pets){
                     petitionListEl = [];
                     petitionList.innerHTML = null;
