@@ -21,8 +21,8 @@
 			$netid = $_ENV['netid']; //From Shibboleth
 			$name = $_POST['name'];
 			$petitionid = $_REQUEST['petitionid']; //From URL
-			$comment = $POST['comment'];
-			$timestamp = $POST['timestamp'];
+			$comment = $_POST['comment'];
+			$timestamp = $_POST['timestamp'];
 			$query->execute();
 
 			//Update votes count
@@ -31,8 +31,7 @@
 			$votes_query = "UPDATE petitions
 							SET count = $numvotes
 							WHERE id = $petitionid";
-			$votes_query->execute();
-
+			mysqli_query($conn, $votes_query);
 		}
 		
 		//ADD NEW PETITON TO DATABASE
@@ -40,14 +39,13 @@
 			$query = $conn->prepare("INSERT INTO petitions(name, author, blurb, content, tags, category, date) VALUES(?,?,?,?,?,?,?)");
 			$query->bind_param("sssssss", $name, $author, $blurb, $content, $tags, $category, $date);
 			
-			//Grab information from AJAX
+			//Grab info from AJAX
 			$name = $_POST['name'];
 			$author = $_ENV['netid'];
 			$blurb = $_POST['blurb'];
 			$content = $_POST['content'];
 			$tags = $_POST['tags'];
 			$category = $_POST['category'];
-			//Passed a string from AJAX hopefully
 			$date = $_POST['date'];
 
 			$query->execute();
@@ -70,5 +68,24 @@
 		}
 
 		echo json_encode($petitions);
+	}
+
+	//DELETE POST FROM AUTHOR
+	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+		//Check for authentication
+		$petitionid = $_REQUEST['petitionid'];
+		$result = $conn->query("SELECT author FROM petitions WHERE petitionid = '$petitionid' LIMIT 1");
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		//Authenticated
+		if ($_ENV['netid'] == $row['author']){
+			//Remove from petitions table
+			$delete_query = "DELETE FROM petitions WHERE petitionid = '$petitionid'";
+			mysqli_query($conn, $delete_query);
+
+			//Remove petition votes from votes table
+			$remove_votes_query = "DELETE FROM votes WHERE petitionid = '$petitionid'";
+			mysqli_query($conn, $remove_votes_query);
+		}
 	}
 ?>
