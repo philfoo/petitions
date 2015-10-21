@@ -142,7 +142,7 @@ var DSGSTF;
         };
         
         petitions.getUser = function() {
-            getJSON("/votesLeft");
+            getJSON("/backend/votesLeft.php");
         }
 
 
