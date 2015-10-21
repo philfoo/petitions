@@ -8,6 +8,14 @@ var DSGSTF;
             var voteTemplate = Handlebars.compile(document.getElementById("vote-template").innerHTML);
             var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
             var bigPetitionTemplate = Handlebars.compile(document.getElementById("big-petition-template").innerHTML);
+            var userInfoEl = document.getElementById('userInfo');
+            
+            getUser().then(function(user) {
+                petitions.user = user;
+                //print user info
+                userInfoEl.innerHTML = user.netid + " (" + user.votes + " votes remaining) " + (user.admin ? "[admin]" : "");
+            });
+           
         } catch (err) {
             console.log(err);  
         }
@@ -132,6 +140,10 @@ var DSGSTF;
                 }
             });
         };
+        
+        petitions.getUser = function() {
+            getJSON("/votesLeft");
+        }
 
 
     })(petitions = DSGSTF.petitions || (DSGSTF.petitions = {}));
