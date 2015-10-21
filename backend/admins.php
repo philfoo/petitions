@@ -36,10 +36,8 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		$id = $_REQUEST['netid'];
 
-		$remove_admin_query = "UPDATE users
-							   SET admin = 0
-							   WHERE netid = $id";
-							   
+		$remove_admin_query = "UPDATE users SET admin = 0 WHERE netid = $id";
+
 		mysqli_query($conn, $remove_admin_query);
 	}
 ?>
