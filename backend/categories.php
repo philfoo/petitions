@@ -20,7 +20,7 @@
 		$result = $conn->query("SELECT admin FROM users WHERE netid = '$user_id' LIMIT 1");
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-		if ($row['admin'] == true){
+		if ($row['admin'] == 1){
 			$add_cat_query = $conn->prepare("INSERT INTO categories(category, desecription) VALUES(?,?)");
 			$add_cat_query->bind_param("ss", $category, $description);
 			$category = $_POST['category'];
