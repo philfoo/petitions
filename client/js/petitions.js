@@ -35,12 +35,12 @@ var DSGSTF;
             });
         }
 
-
+        // TODO: figure out if working
         function postReq(url, params) {
             return new Promise(function (resolve, reject) {
                 //TODO run ajax request
                 var req = new XMLHttpRequest();
-                req.open("POST", url);
+                req.open("POST", url, true);
                 req.onload = function () {
                     if (req.status === 200) {
                         resolve(req.response);
@@ -56,11 +56,11 @@ var DSGSTF;
 
         petitions.getPetitionsData = function() {
             var location = "petition-list";
-            var url = "/backend/petitions";
+            var url = "/backend/petitions.php";
             getJSON(url).then(function (pets) {
                 for (var i = 0; i < pets.length; i++) {
                     if (!(pets[i] in petitionList)) {
-                        petitionList.push(pets[i]);
+                        petitionListEl.push(pets[i]);
                     }
                     petitionList.innerHTML += littlePetitionTemplate(pets[i]);
                 }
@@ -70,17 +70,39 @@ var DSGSTF;
 
         //in HTML, use <button onclick = ""></button>
         //-- hopefully this will increase the vote by one
+        petitions.voteOnce = function(petitionId){
+            var url = "/backend/petitions.php";
+            //-- vote once, and then update all the HTML
+            postJSON(url, "petitionid="+petitionId).then(function(){
+                getJSON(url).then(function(pets){
+                    petitionListEl = [];
+                    petitionList.innerHTML = null;
+                    for (var i = 0; i < pets.length; i++) {
+                        petitionListEl.push(pets[i]);
+                        petitionList.innerHTML += littlePetitionTemplate(pets[i]);
+                    }
+                });
+            });
+        }
 
-        petitions.postPetitionsData = function (petitionId) {
-            var url = "/backend/petitions" + "/" + petitionId;
-            postReq(url);
+        //-- create new petition, then update petitionListEl and HTML
+        petitions.postPetitionsData = function (JSONdata) {
+            var url = "/backend/petitions.php";
+            postReq(url, JSONdata).then(function(){
+                getJSON(url).then(function (pets) {
+                    for (var i = 0; i < pets.length; i++) {
+                        if (!(pets[i] in petitionList)) {
+                            petitionListEl.push(pets[i]);
+                        }
+                        petitionList.innerHTML += littlePetitionTemplate(pets[i]);
+                    }
+                });
+            });
         };
-
-
 
         petitions.getCategoriesData = function () {
             var location = "row";
-            var url = "/backend/categories";
+            var url = "/backend/categories.php";
             getJSON(url).then(function (cats) {
                 for (var i=0; i<cats.length; i++) {
                     if (!(cats[i] in categories)) {
@@ -90,7 +112,6 @@ var DSGSTF;
             });
         };
 
-
         // get netid from $_ENV shibboleth
         petitions.getVotesLeft = function () {
             var location = "votesLeft";
@@ -99,7 +120,6 @@ var DSGSTF;
 
             });
         };
-
 
         petitions.getAdminData = function () {
             var location = "admins";
