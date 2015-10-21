@@ -8,7 +8,7 @@
   <title>DSG Petitions Platform</title>
 
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <script src="handlebars.min.js"></script>
 </head>
 
 <body>
@@ -30,6 +30,52 @@
               <li><a href="#">Votes</a></li>
               <li><a href="#">Responses</a></li>
 
+	<div class="jumbotron">
+	<center>
+    <h3>Welcome to the Petitions Platform</h3>
+		<p>This is where a short description of the platform as a whole will go.</p>
+  </center>
+	</div>
+	<main>
+		<!-- THIS IS WHERE RENDERED CONTENT GOES -->
+
+<div class="container-fluid">
+  <div class="row">
+
+      <script id="petition-list" type="text/x-handlebars-template">
+
+        {{#each petition}}
+
+          <!-- Here the context is each individual person. So we can access its properties directly: -->
+
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            
+            <div class="panel-heading"><center>{{name}}&nbsp<span class="badge">121</span></center></div>
+            
+            <div class="panel-body">
+              {{blurb}}
+            </div>
+            <div class="panel-body">
+            <span class="label label-primary">{{category}}</span>
+            </div>
+          </div>
+        </div>
+
+        {{/each}}
+
+      </script>
+
+  <div class="col-sm-4">
+    <div class="panel panel-primary">
+      
+      <div class="panel-heading"><center>No homework!&nbsp<span class="badge">121</span></center></div>
+      
+      <div class="panel-body">
+        We are too stressed!
+      </div>
+      <div class="panel-body">
+      <span class="label label-primary">ACADEMICS</span>
             </ul>
           </li>
         </ul>
