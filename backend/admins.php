@@ -1,5 +1,6 @@
 <?php
-	include_once("db.php");
+	require_once("db.php");
+	require_once("ensureUser.php");
 	//creates $conn mysqli instance
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){

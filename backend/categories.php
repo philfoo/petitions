@@ -1,12 +1,13 @@
 <?php
-	include_once("db.php");
+	require_once("db.php");
+	require_once("ensureUser.php");
 	//creates $conn mysqli instance
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		//adds a new category (admin access only)
 
 		//Check for admin rights
-		$user_id = $_ENV['netid'];
+		$user_id = $user['netid'];
 		$result = $conn->query("SELECT admin FROM users WHERE netid = '$user_id' LIMIT 1");
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 

@@ -1,5 +1,6 @@
 <?php
-	include_once("db.php");
+	require_once("db.php");
+	require_once("ensureUser.php");
 	//creates $conn mysqli instance
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -8,7 +9,7 @@
 		if (array_key_exists("petitionid", $_REQUEST)) {
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
-			$netid = $_ENV['netid']; //From Shibboleth
+			$netid = $user['netid']; //From Shibboleth
 			$name = $_POST['name'];
 			$petitionid = $_REQUEST['petitionid']; //From URL
 			$comment = $_POST['comment'];
@@ -31,7 +32,7 @@
 			
 			//Grab info from AJAX
 			$name = $_POST['name'];
-			$author = $_ENV['netid'];
+			$author = $user['netid'];
 			$blurb = $_POST['blurb'];
 			$content = $_POST['content'];
 			$tags = $_POST['tags'];
@@ -68,7 +69,7 @@
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		//Authenticated
-		if ($_ENV['netid'] == $row['author']){
+		if ($user['netid'] == $row['author']){
 			//Remove from petitions table
 			$delete_query = "DELETE FROM petitions WHERE petitionid = '$petitionid'";
 			mysqli_query($conn, $delete_query);

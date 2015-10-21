@@ -35,7 +35,6 @@ The Design of the Petition platform follows its goals. Modular design should all
 #### Users
 
  - netid: unique netid
- - lastvote: unix time (millis) of the last vote made by the user
  - remainingVotes: number of votes remaining for the day for the user
  - admin: boolean representing whether the user is an admin
 
