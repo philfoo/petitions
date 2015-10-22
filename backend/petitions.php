@@ -6,10 +6,10 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
 		//VOTE FOR THE PETITION
-		if (array_key_exists("petitionid", $_REQUEST)) {
+		if (array_key_exists("petitionid", $_REQUEST) && $user['remainingvotes']>0) {
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
-			$netid = $user['netid']; //From Shibboleth
+			$netid = $user['netid'];
 			$name = $_POST['name'];
 			$petitionid = $_REQUEST['petitionid']; //From URL
 			$comment = $_POST['comment'];
@@ -23,6 +23,13 @@
 							SET count = $numvotes
 							WHERE id = $petitionid";
 			mysqli_query($conn, $votes_query);
+
+			//Change votes remaining
+			$votes_remaining_query = "UPDATE users
+									  SET remainingvotes = remainingvotes-1
+									  WHERE netid = '$netid'";
+			mysqli_query($conn, $votes_query);
+
 		}
 		
 		//ADD NEW PETITON TO DATABASE
