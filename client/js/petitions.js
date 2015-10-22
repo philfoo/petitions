@@ -2,8 +2,6 @@ var DSGSTF;
 (function (DSGSTF) {
     var petitions;
     (function (petitions) {
-
-
         try {
             var voteTemplate = Handlebars.compile(document.getElementById("vote-template").innerHTML);
             var littlePetitionTemplate = Handlebars.compile(document.getElementById("little-petition-template").innerHTML);
@@ -147,7 +145,7 @@ var DSGSTF;
         };
         
         petitions.getUser = function() {
-            getJSON("/backend/users.php");
+            getJSON("/backend/user.php");
         }
 
 
