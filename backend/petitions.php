@@ -72,7 +72,7 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		//Check for authentication
 		$petitionid = $_REQUEST['petitionid'];
-		$result = $conn->query("SELECT author FROM petitions WHERE petitionid = '$petitionid' LIMIT 1");
+		$result = $conn->query("SELECT author FROM petitions WHERE id = '$petitionid' LIMIT 1");
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		//Authenticated
