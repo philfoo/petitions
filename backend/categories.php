@@ -1,7 +1,7 @@
 <?php
 	require_once("db.php");
 	require_once("ensureUser.php");
-	//creates $conn mysqli instance
+	//creates $conn mysqli instance and $user
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		//adds a new category (admin access only)
