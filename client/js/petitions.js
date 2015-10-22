@@ -44,11 +44,22 @@ var DSGSTF;
         }
 
         // TODO: figure out if working
-        function postReq(url, params) {
+        function postReq(url, obj) {
             return new Promise(function (resolve, reject) {
-                //TODO run ajax request
                 var req = new XMLHttpRequest();
                 req.open("POST", url, true);
+                
+                var params = "";
+                //convert obj to url encoded
+                for (i in obj) {
+                    params += encodeURIComponent(i) + "=";
+                    params += encodeURIComponent(obj[i]) + "&";
+                }
+                params = params.slice(0,-1); //remove trailing ampersand
+                
+                req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                req.setRequestHeader("Content-length", ""+params.length);//convert to string ghetto way
+                req.setRequestHeader("Connection","close");
                 req.onload = function () {
                     if (req.status === 200) {
                         resolve(req.response);
@@ -81,7 +92,10 @@ var DSGSTF;
         petitions.voteOnce = function(petitionId){
             var url = "/backend/petitions.php";
             //-- vote once, and then update all the HTML
-            postReq(url, "petitionid="+petitionId).then(function(){
+            var data = {
+                petitionId: petitionId
+            }
+            postReq(url, data).then(function(){
                 getJSON(url).then(function(pets){
                     petitionListEl = [];
                     petitionList.innerHTML = null;

@@ -76,7 +76,7 @@ The structure below is an explanation of the directory structure of the repo:
 | /client/index.html | Main (and probably only) page |
 | /backend     | Backend data api (secured by shib) |
 | /backend/petitions | A GET request returns a JSON array of all petitions. a POST request validates and saves a new petition |
-| /backend/petitions/:petitionid | A POST request votes for the petition as the user. a DELETE request by the *author* removes it |
+| /backend/petitions?petitionid | A POST request votes for the petition as the user. a DELETE request by the *author* removes it |
 | /backend/categories | A GET request returns a JSON array of categories. A POST request adds a new category (admin only) |
 | /backend/user | A GET request returns the user from the user table. |
 | /backend/admins | A GET request lists all admins. A POST request adds a netid as an admin |
