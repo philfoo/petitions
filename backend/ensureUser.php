@@ -20,7 +20,7 @@
 		
 	function addUser($conn) {
 		$add_user_query = $conn->prepare("INSERT INTO users (netid, admin, remainingvotes) VALUES(?,?,?)");
-		$add_user_query->bind_param("ssss", $netid, $admin, $remainingvotes);
+		$add_user_query->bind_param("sss", $netid, $admin, $remainingvotes);
 		$netid = explode("@",$_SERVER['eppn'])[0];
 		$admin = false;
 		$remainingvotes = 3;
