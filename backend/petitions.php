@@ -1,7 +1,7 @@
 <?php
 	require_once("db.php");
 	require_once("ensureUser.php");
-	//creates $conn mysqli instance
+	//creates $conn mysqli instance and $user
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
@@ -10,14 +10,14 @@
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
 			$netid = $user['netid'];
-			$name = $_POST['name'];
+			$name = $user['netid'];
 			$petitionid = $_REQUEST['petitionid']; //From URL
-			$comment = $_POST['comment'];
-			$timestamp = $_POST['timestamp'];
+			$comment = substr($_POST['comment'],0,255);//limit to 255
+			$timestamp = round(microtime(true) * 1000);;
 			$query->execute();
 
 			//Update votes count
-			$votes_result = $conn->query("SELECT *FROM votes WHERE petitionid = '$petitionid'");
+			$votes_result = $conn->query("SELECT * FROM votes WHERE petitionid = '$petitionid'");
 			$numvotes = $votes_result->num_rows;
 			$votes_query = "UPDATE petitions
 							SET count = $numvotes
