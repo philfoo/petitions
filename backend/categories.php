@@ -7,11 +7,7 @@
 		//adds a new category (admin access only)
 
 		//Check for admin rights
-		$user_id = $user['netid'];
-		$result = $conn->query("SELECT admin FROM users WHERE netid = '$user_id' LIMIT 1");
-		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-		if ($row['admin'] == 1){
+		if ($user['admin'] == 1){
 			$add_cat_query = $conn->prepare("INSERT INTO categories(category, desecription) VALUES(?,?)");
 			$add_cat_query->bind_param("ss", $category, $description);
 			$category = $_POST['category'];
@@ -22,7 +18,7 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 		//Return JSON Array of all categories
-		$query = "SELECT category FROM categories";
+		$query = "SELECT * FROM categories";
 
 		//Initialize categories array
 		$categories = [];
