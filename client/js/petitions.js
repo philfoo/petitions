@@ -93,7 +93,7 @@ var DSGSTF;
             var url = "/backend/petitions.php";
             //-- vote once, and then update all the HTML
             var data = {
-                petitionId: petitionId
+                'petitionid': petitionId
             }
             postReq(url, data).then(function(){
                 getJSON(url).then(function(pets){
@@ -134,18 +134,9 @@ var DSGSTF;
             });
         };
 
-        // get netid from $_ENV shibboleth
-        petitions.getVotesLeft = function () {
-            var location = "votesLeft";
-            var url = "/backend/votesLeft";
-            getJSON(url).then(function (votes) {
-
-            });
-        };
-
         petitions.getAdminData = function () {
             var location = "admins";
-            var url = "/backend/admins";
+            var url = "/backend/admins.php";
             getJSON(url).then(function (admins) {
                 for (var i = 0; i < adminList.length; i++) {
                     if (!(adminList[i] in admins)) {
