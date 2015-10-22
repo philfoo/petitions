@@ -7,8 +7,12 @@
 	$query = "SELECT * FROM users WHERE netid='" . explode("@",$_SERVER["eppn"])[0] . "';";
 
 	//Load all rows in result
-	if ($result = $conn->query($query) && $user = mysqli_fetch_object($result)){
+	if ($result = $conn->query($query)) {
+		if ($user = mysqli_fetch_object($result)){
 		//we're golden. continue.
+		} else {
+			addUser($conn);
+		}
 	} else {
 		addUser($conn);
 	}
