@@ -78,7 +78,7 @@
 		//Authenticated
 		if ($user['netid'] == $row['author']){
 			//Remove from petitions table
-			$delete_query = "DELETE FROM petitions WHERE petitionid = '$petitionid'";
+			$delete_query = "DELETE FROM petitions WHERE id = '$petitionid'";
 			mysqli_query($conn, $delete_query);
 
 			//Remove petition votes from votes table
