@@ -10,6 +10,7 @@
 	if ($result = $conn->query($query)) {
 		if ($user = mysqli_fetch_object($result)){
 		//we're golden. continue.
+			$user = get_object_vars($user);//final fix I hope
 		} else {
 			addUser($conn);
 		}
