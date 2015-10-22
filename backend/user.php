@@ -4,6 +4,6 @@
 	//creates $conn mysqli instance and $user
 
 
-	echo $user['netid'];
+	echo json_encode($user);
 
 ?>
