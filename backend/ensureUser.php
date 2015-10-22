@@ -4,7 +4,7 @@
 	//creates $conn mysqli instance
 	$user = Array();
 		
-	$query = "SELECT * FROM users WHERE netid='" . explode("@",$_SERVER["eppn"]) . "';";
+	$query = "SELECT * FROM users WHERE netid='" . explode("@",$_SERVER["eppn"])[0] . "';";
 
 	//Load all rows in result
 	if ($result = $conn->query($query) && $user = mysqli_fetch_object($result)){
