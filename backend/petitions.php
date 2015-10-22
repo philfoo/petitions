@@ -28,7 +28,7 @@
 			$votes_remaining_query = "UPDATE users
 									  SET remainingvotes = remainingvotes-1
 									  WHERE netid = '$netid'";
-			mysqli_query($conn, $votes_query);
+			mysqli_query($conn, $votes_remaining_query);
 
 		}
 		
