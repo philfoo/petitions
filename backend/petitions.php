@@ -6,7 +6,12 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
 		//VOTE FOR THE PETITION
-		if (array_key_exists("petitionid", $_REQUEST) && $user['remainingvotes']>0) {
+		if (array_key_exists("petitionid", $_REQUEST)) {
+			if ($user['remainingvotes'] <= 0) {
+				http_response_code(402);
+				echo '{"error":"You can only vote on three per day!"}';
+				exit();
+			}
 			$query = $conn->prepare("INSERT INTO votes(netid, name, petitionid, comment, timestamp) VALUES(?,?,?,?,?)");
 			$query->bind_param("sssss", $netid, $name, $petitionid, $comment, $timestamp);
 			$netid = $user['netid'];
@@ -74,16 +79,15 @@
 		$petitionid = $_REQUEST['petitionid'];
 		$result = $conn->query("SELECT author FROM petitions WHERE id = '$petitionid' LIMIT 1");
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		
+
 		//Authenticated
 		if ($user['netid'] == $row['author']){
 			//Remove from petitions table
 			$delete_query = "DELETE FROM petitions WHERE id = '$petitionid'";
 			mysqli_query($conn, $delete_query);
-
-			//Remove petition votes from votes table
-			$remove_votes_query = "DELETE FROM votes WHERE petitionid = '$petitionid'";
-			mysqli_query($conn, $remove_votes_query);
+		} else {
+			http_response_code(403);
+			echo '{"error":"unauthorized"}';
 		}
 	}
 ?>

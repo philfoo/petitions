@@ -285,6 +285,9 @@ th {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.glyphicon:hover{
+  background:#001A57;
+}
 .glyphicon-asterisk:before {
   content: "\2a";
 }
@@ -4377,6 +4380,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-nav {
   margin: 7.5px -15px;
 }
+.navbar-nav li:hover{
+  background: #001A57;
+}
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -4644,7 +4650,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse {
   background-color: #0736a4;
-  border-color: #001a57;
+  border-style: solid;
+  border-bottom-color: #ffffff;
 }
 .navbar-inverse .navbar-brand {
   color: #ffffff;

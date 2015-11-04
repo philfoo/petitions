@@ -8,7 +8,7 @@
 
 		//Check for admin rights
 		if ($user['admin'] == 1){
-			$add_cat_query = $conn->prepare("INSERT INTO categories(category, desecription) VALUES(?,?)");
+			$add_cat_query = $conn->prepare("INSERT INTO categories(category, description) VALUES(?,?)");
 			$add_cat_query->bind_param("ss", $category, $description);
 			$category = $_POST['category'];
 			$description = $_POST['description'];
@@ -31,6 +31,6 @@
 		}
 
 		//Should output array with only  categories
-		echo json_encode($petitions);
+		echo json_encode($categories);
 	}
 ?>

@@ -1,6 +1,36 @@
-<form method="DELETE" action="petitions.php?petitionid=2"> 
-	<input type="text" name="name">
-	<input type="text" name="comment">
-	<input type="text" name="timestamp">
-	<input type="submit">
-</form>
+<html>
+
+<body>
+	<form method="POST" action="petitions.php">
+		<input type="text" name="name" placeholder="name">
+		<input type="text" name="comment" placeholder="comment">
+		<input type="text" name="timestamp" placeholder="timestamp">
+		<input type="submit" id="submit">
+	</form>
+
+	<br>
+
+	<input type="text" name="id" placeholder="ID" id="id">
+	<button type="button" id="delete">Delete</button>
+
+</body>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$("#delete").click(function(){
+			var id = document.getElementById("id").value;
+			$.ajax({
+				method: "DELETE",
+				url: "petitions.php?petitionid="+id,
+				success: function(data) {
+					console.log(data);
+				},
+				complete: function(xx,status) {
+					console.log("compelte");
+					console.log(xx);
+					console.log(status);
+				}
+			});
+		});
+</script>
+
+</html>
